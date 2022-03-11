@@ -28,7 +28,7 @@ class Go0:
         self.selection = 'rr'
         self.policy = 'random'
         self.simulations = 10
-        self.weights = self.open_file('weights')
+        self.weights = self.open_file('weights.txt')
     
     def open_file(self, file_name):
         weights = dict()
@@ -57,7 +57,7 @@ class Go0:
         if self.policy == 'random':
             while 1:
                 player = board.current_player
-                move = GoBoardUtil.generate_random_move(board, player)
+                move = GoBoardUtil.generate_random_move(board, player, True)
                 if not move:
                     return GoBoardUtil.opponent(player)
                 board.play_move(move, player)
@@ -113,7 +113,7 @@ class Go0:
             stats = []
             for i in range(len(legal_moves)):
                 stats.append([0,0])
-            for n in len(sims):
+            for n in range(sims):
                 max = -1
                 max_score = -float("inf")
                 for j in range(len(stats)):
@@ -130,13 +130,13 @@ class Go0:
                     stats[max][0] += 1
                 stats[max][1] += 1
 
-                max_arm = -1
-                max_arm_count = -float("inf")
-                for i in range(len(stats)):
-                    if stats[i][1] > max_arm_count:
-                        max_arm = i
-                        max_arm_count = stats[i][1]
-                return max_arm
+            max_arm = -1
+            max_arm_count = -float("inf")
+            for i in range(len(stats)):
+                if stats[i][1] > max_arm_count:
+                    max_arm = i
+                    max_arm_count = stats[i][1]
+            return max_arm
 
 def run():
     """
