@@ -1,0 +1,30 @@
+Script started on Thu Mar 10 23:06:09 2022
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+[?1034hbash-3.2$ mkdir new
+bash-3.2$ cp assignment3.tgz ./new
+bash-3.2$ cd new
+bash-3.2$ ls
+assignment3.tgz
+bash-3.2$ tar -zxvf assignment2.tgz[1P.tgz3.tgz
+x assignment3/
+x assignment3/board.py
+x assignment3/index.html
+x assignment3/board_util.py
+x assignment3/weights.txt
+x assignment3/gtp_connection.py
+x assignment3/NoGo.py
+x assignment3/assignment3-public-tests.gtp.html
+x assignment3/readme.txt
+x assignment3/run_NoGo.sh
+x assignment3/assignment3-public-tests.gtp.out.html
+x assignment3/assignment3-public-tests.gtp
+x assignment3/summary.dat
+bash-3.2$ cd assignement[K[K[K[K[K[K[Kgnment3
+bash-3.2$ gogui-regress ./NoGo.py assignment3-public-tests.gtp
+bash-3.2$ exit
+exit
+
+Script done on Thu Mar 10 23:07:58 2022
