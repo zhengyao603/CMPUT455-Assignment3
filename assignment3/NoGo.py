@@ -128,7 +128,7 @@ class Go0:
                         max_score = score
                         max = j
                 
-                result = self.simulate(board, max, color)
+                result = self.simulate(board, stats[max][2], color)
                 if result == color:
                     stats[max][0] += 1
                 stats[max][1] += 1
