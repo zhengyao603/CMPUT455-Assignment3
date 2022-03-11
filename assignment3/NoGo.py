@@ -84,9 +84,12 @@ class Go0:
                 for key in move_weights.keys():
                     move_weights[key] = move_weights[key]/weight_sum
                 
+
                 prob = random.uniform(0,1)
+                move_weights_total = 0
                 for move in move_weights.keys():
-                    if prob <= move_weights[move]:
+                    move_weights_total += move_weights[move]
+                    if prob <= move_weights_total:
                         board.play_move(move, player)
                         break
 
