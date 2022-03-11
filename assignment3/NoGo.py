@@ -111,8 +111,8 @@ class Go0:
         elif self.selection == 'ucb':
             C = 0.4
             stats = []
-            for i in range(len(legal_moves)):
-                stats.append([0,0])
+            for move in legal_moves:
+                stats.append([0,0,move])
             for n in range(sims):
                 max = -1
                 max_score = -float("inf")
@@ -134,7 +134,7 @@ class Go0:
             max_arm_count = -float("inf")
             for i in range(len(stats)):
                 if stats[i][1] > max_arm_count:
-                    max_arm = i
+                    max_arm = stats[i][2]
                     max_arm_count = stats[i][1]
             return max_arm
 
