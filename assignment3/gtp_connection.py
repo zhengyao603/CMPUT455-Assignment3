@@ -55,6 +55,7 @@ class GtpConnection:
             "solve":self.solve_cmd,
             "policy":self.policy_cmd,
             "selection":self.selection_cmd,
+            "policy_moves":self.policy_moves_cmd
         }
 
         # used for argument checking
@@ -328,6 +329,59 @@ class GtpConnection:
         # The argument selectiontype is either rr (round robin) or ucb.
         self.go_engine.selection = args[0]
         self.respond()
+
+    def policy_moves_cmd(self, args):
+        # This command prints the set of moves considered by the simulation policy for the current player in the current position
+        if self.go_engine.policy == "random":
+            moves = GoBoardUtil.generate_legal_moves(self.go_engine, self.go_engine.current_player)
+            if len(moves) == 0:
+                self.respond()
+                return
+            policy_moves_str = []
+            for m in moves:
+                move_coord = point_to_coord(m, self.go_engine.size)
+                move_as_string = format_point(move_coord)
+                policy_moves_str.append(move_as_string)
+
+            policy_moves_str.sort()
+            policy_str = " ".join(policy_moves_str)
+            for i in range(len(policy_moves_str)):
+                policy_str += " %.3f" % (1/len(policy_moves_str))
+            self.respond(policy_str)
+
+        else:
+            moves = GoBoardUtil.generate_legal_moves(self.go_engine, self.go_engine.current_player)
+            if len(moves) == 0:
+                self.respond()
+                return
+            
+            move_weights = dict()
+            weight_sum = 0
+            for move in moves:
+                grid = [move+self.go_engine.NS-1, move+self.go_engine.NS, move+self.go_engine.NS+1, move-1, move+1, move-self.go_engine.NS-1, move-self.go_engine.NS, move-self.go_engine.NS+1]
+                weight = 0
+                for i in range(len(grid)):
+                    value = self.go_engine.board[grid[i]]
+                    weight += value * (4 ** i)
+                move_weight = self.weights.get(weight)
+                move_weights[format_point(point_to_coord(move, self.go_engine.size))] = move_weight
+                weight_sum += move_weight
+            
+            for key in move_weights.keys():
+                move_weights[key] = move_weights[key]/weight_sum
+
+            # sort
+            sorted_move_weights = sorted(move_weights.items(), key=lambda x: x[0])
+            result = []
+            for key in sorted_move_weights.keys():
+                result.append(key)
+
+            for key in sorted_move_weights.keys():
+                result.append(sorted_move_weights[key])
+
+            result_str = " ".join(result)
+            self.respond(result_str)
+
 
 
 def point_to_coord(point, boardsize):
