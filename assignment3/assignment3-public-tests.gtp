@@ -58,7 +58,7 @@ policy random
 
 policy pattern
 20 policy_moves
-#? [d1 d6 f3 f7 0.424 0.206 0.052 0.319]
+#? [d1 d6 f3 f7 0.417 0.102 0.218 0.264]
 
 # Test to see genmove works with rr selection
 play w f3
@@ -190,13 +190,25 @@ play b g1
 play w d1
 play b g5
 
+#   A B C D E F G
+# 7 . X O O O O X 7
+# 6 X X O O O O X 6
+# 5 X X X . X . X 5
+# 4 . O O X O O O 4
+# 3 O X O X . . O 3
+# 2 X . O . X O X 2
+# 1 X X O O X X X 1
+#   A B C D E F G
+#Black to play
+
+
 policy random
 70 policy_moves
 #? [a4 d2 d5 e3 f3 0.2 0.2 0.2 0.2 0.2]
 
 policy pattern
 80 policy_moves
-#? [a4 d2 d5 e3 f3 0.166 0.157 0.097 0.334 0.246]
+#? [a4 d2 d5 e3 f3 0.142 0.176 0.151 0.233 0.298]
 
 clear_board
 boardsize 4
